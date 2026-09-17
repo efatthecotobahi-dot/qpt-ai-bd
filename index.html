@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QPT AI BD</title>
+<style>
+body{background:black;color:white;font-family:sans-serif;display:flex;flex-direction:column;align-items:center;height:100vh;margin:0}
+h1{margin:20px;color:#a855f7}
+#chat{width:90%;max-width:600px;flex:1;overflow:auto;padding:10px}
+.user{background:blue;padding:10px;border-radius:15px;margin:5px;text-align:right}
+.ai{background:#222;padding:10px;border-radius:15px;margin:5px}
+#box{width:90%;max-width:600px;display:flex;padding:10px}
+input{flex:1;padding:12px;border-radius:20px;border:none}
+button{padding:12px 20px;border-radius:20px;margin-left:5px}
+</style>
+</head>
+<body>
+<h1>QPT AI BD</h1>
+<div id="chat"></div>
+<div id="box">
+<input id="input" placeholder="লিখো...">
+<button onclick="send()">Send</button>
+</div>
+<script>
+const AQ.Ab8RN6Lru48WzGnCy7hOfq5X_QmFzK7_WYCdAuhtI-YFLy48Ig
+async function send(){
+let i=document.getElementById('input');
+let c=document.getElementById('chat');
+if(!i.value)return;
+c.innerHTML+=`<div class=user>${i.value}</div>`;
+let t=i.value;i.value='';
+let r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:t}]}]})});
+let d=await r.json();
+let a=d.candidates?.[0]?.content?.parts?.[0]?.text||"Error";
+c.innerHTML+=`<div class=ai>${a}</div>`;
+c.scrollTop=c.scrollHeight;
+}
+</script>
+</body>
+</html>
