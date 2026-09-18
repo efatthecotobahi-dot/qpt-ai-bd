@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QPT AI BD - ইফাত ভাইয়ের AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#08080c;color:#fff;font-family:sans-serif;height:100vh;display:flex;flex-direction:column}
+.header{background:#12121a;padding:14px;text-align:center;border-bottom:1px solid #222}
+.logo{font-size:28px;font-weight:900;color:#a855f7}
+.logo span{color:#fff}
+.sub{color:#22c55e;font-size:13px;margin-top:2px}
+#chat{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:14px;max-width:750px;width:100%;margin:0 auto}
+.msg{padding:12px 16px;border-radius:20px;max-width:85%;line-height:1.5;font-size:15px}
+.bot{align-self:flex-start;background:#1e1e2e;border:1px solid #2a2a3a}
+.user{align-self:flex-end;background:linear-gradient(135deg,#a855f7,#7c3aed)}
+.footer{padding:12px;background:#12121a;border-top:1px solid #222}
+.box{max-width:750px;margin:0 auto;display:flex;gap:10px;background:#1e1e2e;padding:8px 12px;border-radius:30px;border:1px solid #333}
+.box input{flex:1;background:transparent;border:0;outline:0;color:#fff;font-size:16px;padding:8px}
+.box button{width:46px;height:46px;border-radius:50%;border:0;background:#a855f7;color:#fff;font-size:20px}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">QPT <span>AI BD 🇧🇩</span></div>
+<div class="sub">👑 মালিক: ইফাত ভাই | Powered by QPT</div>
+</div>
+<div id="chat">
+<div class="msg bot">আসসালামু আলাইকুম ইফাত ভাই! 😊<br>আমি QPT AI BD, আপনার পার্সোনাল AI। বলুন কি সাহায্য লাগবে?</div>
+</div>
+<div class="footer">
+<div class="box">
+<input id="input" placeholder="এখানে প্রশ্ন লিখুন..." onkeydown="if(event.key==='Enter')send()">
+<button onclick="send()">➤</button>
+</div>
+</div>
+<script>
+const chat=document.getElementById('chat'),input=document.getElementById('input');
+function addMsg(t,cls){let d=document.createElement('div');d.className='msg '+cls;d.innerText=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;return d}
+async function send(){
+let q=input.value.trim();if(!q)return;
+addMsg(q,'user');input.value='';
+let l=q.toLowerCase();
+if(l.includes('মালিক')||l.includes('owner')||l.includes('কে বানাইছে')){
+addMsg('আমার মালিক ইফাত ভাই 👑, QPT AI BD এর প্রতিষ্ঠাতা!','bot');return;
+}
+let a=addMsg('লিখছি...','bot');
+try{
+let res=await fetch('https://text.pollinations.ai/'+encodeURIComponent(q));
+let txt=await res.text();
+a.innerText=txt;
+}catch(e){a.innerText='নেট সমস্যা ভাই, আবার চেষ্টা করুন!'}
+}
+</script>
+</body>
+</html>
